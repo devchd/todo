@@ -1,0 +1,13 @@
+.mar-top-20{
+    margin-top:20px;
+}
+
+
+.completed label {
+    color: #d9d9d9;
+    text-decoration: line-through;
+}
+
+.due{
+    color: #ff0000;
+}
