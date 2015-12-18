@@ -64,64 +64,84 @@
                         <div class="panel-heading">Tasks
                         <span class="pull-right">@{{ time }}</span>
                         </div>
-                        <div class="panel-body">
-
-                            <ul class="list-group" v-if="listdue">
-                                <template v-for="task in tasks">
-                                <li class="list-group-item" v-if="!task.status">
-                                    <div class="row">
-                                        <div class="col-md-1">
-                                            <input value="1" v-model="task.status" v-on:change="mark(task)" type="checkbox" class="toggle">
-                                        </div>
-                                        <div class="col-md-7">
-                                            @{{ task.title }}
-                                        </div>
-                                        <div class="col-md-3" v-bind:class="{'due': task.is_due}">
-                                            @{{ task.due_date }}
-                                        </div>
-                                        <div class="col-md-1">
-                                            <input type="hidden" name="_token" v-model="task._token" value="{{ csrf_token() }}">
-                                            <a href="javascript:void(0)"  v-on:click="remove(task)"><span aria-hidden="true" class="glyphicon glyphicon-remove"></span></a>
-                                        </div>
-
-                                    </div>
-                                </li>
-                                </template>
+                        <div class="panel-body" id="exTab1">
+                            <ul class="nav nav-pills" >
+                               
+                              <li class="active">
+                                  <a href="#duetasks" data-toggle="tab">
+                                      Due
+                                  </a>
+                              </li>
+                              <li >
+                                  <a href="#completedtasks" data-toggle="tab">
+                                      Completed
+                                  </a>
+                              </li>
                             </ul>
+                              <!-- Tab panes -->
+                            <div class="tab-content">
+                                
+                                <div id="duetasks" class="tab-pane active">
+                                    <ul class="list-group" v-if="listdue">
+                                        <template v-for="task in tasks">
+                                        <li class="list-group-item" v-if="!task.status">
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                    <input value="1" v-model="task.status" v-on:change="mark(task)" type="checkbox" class="toggle" title="Mark as Complete">
+                                                </div>
+                                                <div class="col-md-7">
+                                                    @{{ task.title }}
+                                                </div>
+                                                <div class="col-md-3" v-bind:class="{'due': task.is_due}">
+                                                    @{{ task.due_date }}
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <input type="hidden" name="_token" v-model="task._token" value="{{ csrf_token() }}">
+                                                    <a href="javascript:void(0)"  v-on:click="remove(task)"><span aria-hidden="true" class="glyphicon glyphicon-remove"></span></a>
+                                                </div>
 
+                                            </div>
+                                        </li>
+                                        </template>
+                                    </ul>
+                                </div>
 
-                            <ul class="list-group" v-if="!listdue">
-                                <template v-for="task in tasks">
-                                <li class="list-group-item" v-if="task.status">
-                                    <div class="row">
-                                        <div class="col-md-1">
-                                            <input value="1" v-model="task.status" v-on:change="mark(task)" type="checkbox" class="toggle">
-                                        </div>
-                                        <div class="col-md-7">
-                                            @{{ task.title }}
-                                        </div>
-                                        <div class="col-md-3">
-                                            @{{ task.due_date }}
-                                        </div>
-                                        <div class="col-md-1">
-                                            <input type="hidden" name="_token" v-model="task._token" value="{{ csrf_token() }}">
-                                            <a href="javascript:void(0)"  v-on:click="remove(task)"><span aria-hidden="true" class="glyphicon glyphicon-remove"></span></a>
-                                        </div>
+                                <div id="completedtasks" class="tab-pane">
+                                    <ul class="list-group" v-if="listdue">
+                                        <template v-for="task in tasks">
+                                        <li class="list-group-item" v-if="task.status">
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                    <input title="Mark as Due" value="1" v-model="task.status" v-on:change="mark(task)" type="checkbox" class="toggle">
+                                                </div>
+                                                <div class="col-md-7">
+                                                    @{{ task.title }}
+                                                </div>
+                                                <div class="col-md-3">
+                                                    @{{ task.due_date }}
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <input type="hidden" name="_token" v-model="task._token" value="{{ csrf_token() }}">
+                                                    <a href="javascript:void(0)"  v-on:click="remove(task)"><span aria-hidden="true" class="glyphicon glyphicon-remove"></span></a>
+                                                </div>
 
-                                    </div>
-                                </li>
-                                </template>
-                            </ul>
+                                            </div>
+                                        </li>
+                                        </template>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
-                        <div class="panel-footer">
+                        <!-- <div class="panel-footer">
                             <button class="btn btn-default" v-on:click="showdue()">Due</button>
                             <button class="btn btn-default" v-on:click="showcomplete()">Completed</button>
-                        </div>
+                        </div> -->
                 </div>
             </div>
         </div>
         </div>
-
+<!---scripts section -->
+          
         <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" type="text/javascript"></script>
         <script type="text/javascript" src="{{ asset('js/vue.js') }}"></script>
@@ -129,7 +149,7 @@
         <script type="text/javascript" src="{{ asset('js/vue-validator.js') }}"></script>
         <script type="text/javascript" src="{{ asset('js/moment.js') }}"></script>
         <script type="text/javascript" src="{{ asset('js/bootstrap-datetimepicker.js') }}"></script>
-
+        
         <script type="text/javascript" src="{{ asset('js/function.js') }}"></script>
     </body>
 </html>
